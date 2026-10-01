@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Edit Pelanggan | NETCAFE</title>
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <body>
+    <div class="app-shell">
+      <%- include('../partials/admin-sidebar', { path: path || '/admin/customers' }) %>
+      <main class="content-area">
+        <header class="topbar"><div><p class="eyebrow">PELANGGAN</p><h1>Edit pelanggan</h1></div></header>
+        <% if (error) { %><p class="form-error"><%= error %></p><% } %>
+        <section class="panel">
+          <form method="post" action="/admin/customers/<%= user.id %>/update">
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" value="<%= user.email %>" required>
+            <label class="checkbox-label"><input type="checkbox" name="is_active" <%= user.is_active ? 'checked' : '' %>> Akun aktif</label>
+            <div class="button-row"><button class="btn btn-primary" type="submit">Simpan</button><a class="btn btn-secondary" href="/admin/customers/<%= user.id %>">Batal</a></div>
+          </form>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Laporan | NETCAFE</title>
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <body>
+    <div class="app-shell">
+      <%- include('../partials/admin-sidebar', { path: path || '/admin/reports' }) %>
+      <main class="content-area">
+        <header class="topbar"><div><p class="eyebrow">RINGKASAN OPERASIONAL</p><h1>Laporan</h1></div></header>
+        <section class="stats-grid">
+          <article class="stat-card"><span class="stat-label">Pelanggan</span><strong><%= Number(stats.total_customers || 0) %></strong></article>
+          <article class="stat-card"><span class="stat-label">Booking</span><strong><%= Number(stats.total_bookings || 0) %></strong></article>
+          <article class="stat-card"><span class="stat-label">Sesi</span><strong><%= Number(stats.total_sessions || 0) %></strong></article>
+          <article class="stat-card"><span class="stat-label">Transaksi</span><strong><%= Number(stats.total_transactions || 0) %></strong></article>
+          <article class="stat-card"><span class="stat-label">Jam penggunaan</span><strong><%= Number(stats.total_usage_hours || 0).toFixed(1) %></strong></article>
+          <article class="stat-card"><span class="stat-label">Pendapatan</span><strong>Rp <%= Number(stats.total_revenue || 0).toLocaleString('id-ID') %></strong></article>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>

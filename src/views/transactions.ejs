@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Riwayat Transaksi | NETCAFE</title>
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <body>
+    <div class="app-shell">
+      <%- include('partials/sidebar', { path: path || '/transactions' }) %>
+      <main class="content-area">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">TRANSAKSI</p>
+            <h1>Riwayat transaksi</h1>
+          </div>
+        </header>
+        <section class="panel">
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr><th>ID</th><th>Komputer</th><th>Booking</th><th>Jumlah</th><th>Status</th><th>Tanggal</th></tr>
+              </thead>
+              <tbody>
+                <% transactions.forEach((transaction) => { %>
+                  <tr>
+                    <td><%= transaction.id %></td>
+                    <td><%= transaction.computer_code %> · <%= transaction.computer_name %></td>
+                    <td><%= transaction.booking_id %></td>
+                    <td>Rp <%= Number(transaction.amount || 0).toLocaleString('id-ID') %></td>
+                    <td><span class="status-badge status-<%= String(transaction.status).toLowerCase() %>"><%= transaction.status === 'PENDING' ? 'Menunggu pembayaran' : transaction.status === 'COMPLETED' ? 'Lunas' : 'Dibatalkan' %></span></td>
+                    <td><%= new Date(transaction.created_at).toLocaleString('id-ID') %></td>
+                  </tr>
+                <% }) %>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>

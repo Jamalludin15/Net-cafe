@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Computers | NETCAFE</title>
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <body>
+    <main class="wide-page">
+      <a class="brand" href="/dashboard">NETCAFE</a>
+      <p class="eyebrow">CUSTOMER</p>
+      <h1>Available computers</h1>
+      <nav class="page-nav"><a href="/dashboard">Dashboard</a><a href="/bookings">My bookings</a></nav>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Code</th><th>Name</th><th>Status</th><th>Hourly rate</th><th></th></tr></thead>
+          <tbody>
+            <% computers.forEach((computer) => { %>
+              <tr>
+                <td><%= computer.computer_code %></td>
+                <td><%= computer.name %></td>
+                <td><span class="status-badge status-<%= computer.status.toLowerCase() %>"><%= computer.status %></span></td>
+                <td><%= Number(computer.hourly_rate).toLocaleString('id-ID') %></td>
+                <td><% if (computer.status === 'AVAILABLE') { %><a href="/bookings/new?computer_id=<%= computer.id %>">Book</a><% } else { %>Unavailable<% } %></td>
+              </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+    </main>
+  </body>
+</html>

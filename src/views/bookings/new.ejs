@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>New booking | NETCAFE</title>
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <body>
+    <main class="auth-page">
+      <a class="brand" href="/computers">NETCAFE</a>
+      <p class="eyebrow">BOOKING</p>
+      <h1>Book <%= computer.name || 'computer' %></h1>
+      <% if (error) { %><p class="form-error" role="alert"><%= error %></p><% } %>
+      <form method="post" action="/bookings">
+        <input type="hidden" name="computer_id" value="<%= computer.id || values.computer_id || '' %>">
+        <label for="start_time">Start time</label>
+        <input id="start_time" name="start_time" type="datetime-local" required value="<%= values.start_time || '' %>">
+        <label for="end_time">End time</label>
+        <input id="end_time" name="end_time" type="datetime-local" required value="<%= values.end_time || '' %>">
+        <button type="submit">Create booking</button>
+      </form>
+      <p class="form-footer"><a href="/computers">Back to computers</a></p>
+    </main>
+  </body>
+</html>

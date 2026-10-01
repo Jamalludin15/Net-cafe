@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Transaksi | NETCAFE</title>
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <body>
+    <div class="app-shell">
+      <%- include('../partials/admin-sidebar', { path: path || '/admin/transactions' }) %>
+      <main class="content-area">
+        <header class="topbar"><div><p class="eyebrow">KEUANGAN</p><h1>Transaksi</h1></div></header>
+        <section class="panel"><div class="table-wrap"><table>
+          <thead><tr><th>Pelanggan</th><th>Booking</th><th>Komputer</th><th>Durasi</th><th>Jumlah</th><th>Status</th><th>Tanggal</th><th>Aksi</th></tr></thead>
+          <tbody>
+            <% transactions.forEach((transaction) => { %>
+              <tr>
+                <td><%= transaction.username %></td>
+                <td><%= transaction.booking_id %></td>
+                <td><%= transaction.computer_code || '-' %> <%= transaction.computer_name || '' %></td>
+                <td><%= Number(transaction.duration_hours || 0).toFixed(2) %> jam</td>
+                <td>Rp <%= Number(transaction.amount || 0).toLocaleString('id-ID') %></td>
+                <td><%= transaction.status %></td>
+                <td><%= new Date(transaction.created_at).toLocaleString('id-ID') %></td>
+                <td class="action-cell">
+                  <a href="/admin/transactions/<%= transaction.id %>">Detail</a>
+                  <% if (transaction.status === 'PENDING') { %><form method="post" action="/admin/transactions/<%= transaction.id %>/complete"><button class="btn btn-primary" type="submit">Terima pembayaran</button></form><% } %>
+                </td>
+              </tr>
+            <% }) %>
+          </tbody>
+        </table></div></section>
+      </main>
+    </div>
+  </body>
+</html>

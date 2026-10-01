@@ -1,0 +1,51 @@
+services:
+  app:
+    build: .
+    environment:
+      NODE_ENV: ${NODE_ENV:-development}
+      PORT: ${PORT:-3000}
+      DATABASE_URL: ${DATABASE_URL:-postgresql://netcafe_app:${POSTGRES_APP_PASSWORD}@postgres:5432/netcafe}
+      SESSION_SECRET: ${SESSION_SECRET:?Set SESSION_SECRET in .env}
+      TRUST_PROXY: ${TRUST_PROXY:-false}
+    ports:
+      - "127.0.0.1:${PORT:-3000}:${PORT:-3000}"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test:
+        - CMD
+        - node
+        - -e
+        - "fetch('http://127.0.0.1:' + process.env.PORT + '/health').then((response) => process.exit(response.ok ? 0 : 1)).catch(() => process.exit(1))"
+      interval: 10s
+      timeout: 3s
+      retries: 5
+      start_period: 10s
+    networks:
+      - netcafe
+
+  postgres:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_DB: netcafe
+      POSTGRES_USER: netcafe_admin
+      POSTGRES_PASSWORD: ${POSTGRES_ADMIN_PASSWORD:?Set POSTGRES_ADMIN_PASSWORD in .env}
+      POSTGRES_APP_PASSWORD: ${POSTGRES_APP_PASSWORD:?Set POSTGRES_APP_PASSWORD in .env}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./database/init/001-create-app-user.sh:/docker-entrypoint-initdb.d/001-create-app-user.sh:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U netcafe_admin -d netcafe"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    networks:
+      - netcafe
+
+volumes:
+  postgres_data:
+
+networks:
+  netcafe:
+    driver: bridge

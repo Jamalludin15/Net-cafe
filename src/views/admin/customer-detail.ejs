@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Detail Pelanggan | NETCAFE</title>
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <body>
+    <div class="app-shell">
+      <%- include('../partials/admin-sidebar', { path: path || '/admin/customers' }) %>
+      <main class="content-area">
+        <header class="topbar">
+          <div><p class="eyebrow">PELANGGAN</p><h1><%= user.username %></h1><p><%= user.email %></p></div>
+          <a class="btn btn-secondary" href="/admin/customers/<%= user.id %>/edit">Edit pelanggan</a>
+        </header>
+        <section class="stats-grid">
+          <article class="stat-card"><span class="stat-label">Booking</span><strong><%= bookingCount %></strong></article>
+          <article class="stat-card"><span class="stat-label">Transaksi</span><strong><%= transactionCount %></strong></article>
+          <article class="stat-card"><span class="stat-label">Jam penggunaan</span><strong><%= Number(usageSummary.total_hours || 0).toFixed(1) %></strong></article>
+          <article class="stat-card"><span class="stat-label">Total pembayaran</span><strong>Rp <%= Number(usageSummary.total_amount || 0).toLocaleString('id-ID') %></strong></article>
+        </section>
+        <section class="panel"><a class="btn btn-secondary" href="/admin/customers">Kembali ke pelanggan</a></section>
+      </main>
+    </div>
+  </body>
+</html>

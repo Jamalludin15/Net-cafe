@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Admin Dashboard | NETCAFE</title>
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <body>
+    <div class="app-shell">
+      <%- include('../partials/admin-sidebar', { path: path || '/admin/dashboard' }) %>
+      <main class="content-area">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">ADMIN</p>
+            <h1>Admin Dashboard</h1>
+            <p><%= user.email %> · <%= user.role %></p>
+          </div>
+          <div class="topbar-actions">
+            <a class="btn btn-secondary" href="/admin/customers">Pelanggan</a>
+            <form method="post" action="/logout">
+              <button class="btn btn-danger" type="submit">Logout</button>
+            </form>
+          </div>
+        </header>
+
+        <section class="stats-grid">
+          <article class="stat-card">
+            <span class="stat-label">Total Pelanggan</span>
+            <strong><%= Number(summary.total_customers || 0) %></strong>
+          </article>
+          <article class="stat-card">
+            <span class="stat-label">Komputer Available</span>
+            <strong><%= Number(summary.available_computers || 0) %></strong>
+          </article>
+          <article class="stat-card">
+            <span class="stat-label">Komputer In Use</span>
+            <strong><%= Number(summary.in_use_computers || 0) %></strong>
+          </article>
+          <article class="stat-card">
+            <span class="stat-label">Komputer Maintenance</span>
+            <strong><%= Number(summary.maintenance_computers || 0) %></strong>
+          </article>
+          <article class="stat-card">
+            <span class="stat-label">Booking Aktif</span>
+            <strong><%= Number(summary.active_bookings || 0) %></strong>
+          </article>
+          <article class="stat-card">
+            <span class="stat-label">Sesi Aktif</span>
+            <strong><%= Number(summary.active_sessions || 0) %></strong>
+          </article>
+          <article class="stat-card">
+            <span class="stat-label">Total Transaksi</span>
+            <strong><%= Number(summary.total_transactions || 0) %></strong>
+          </article>
+          <article class="stat-card">
+            <span class="stat-label">Pendapatan</span>
+            <strong>Rp <%= Number(summary.revenue_total || 0).toLocaleString('id-ID') %></strong>
+          </article>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>

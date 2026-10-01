@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Dashboard | NETCAFE</title>
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <body>
+    <div class="app-shell">
+      <%- include('partials/sidebar', { path: path || '/dashboard' }) %>
+      <main class="content-area">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">CUSTOMER</p>
+            <h1>Selamat datang, <%= user.username %></h1>
+            <p class="authenticated-indicator">Authenticated</p>
+          </div>
+          <div class="topbar-actions">
+            <a class="btn btn-secondary" href="/profile">Profile</a>
+            <form method="post" action="/logout">
+              <button class="btn btn-danger" type="submit">Logout</button>
+            </form>
+          </div>
+        </header>
+
+        <section class="stats-grid">
+          <article class="stat-card">
+            <span class="stat-label">Komputer Tersedia</span>
+            <strong><%= Number(summary.available_computers || 0) %></strong>
+          </article>
+          <article class="stat-card">
+            <span class="stat-label">Booking Aktif</span>
+            <strong><%= Number(summary.active_bookings || 0) %></strong>
+          </article>
+          <article class="stat-card">
+            <span class="stat-label">Total Booking</span>
+            <strong><%= Number(summary.total_bookings || 0) %></strong>
+          </article>
+          <article class="stat-card">
+            <span class="stat-label">Total Penggunaan</span>
+            <strong><%= Number(summary.total_usage_hours || 0).toFixed(1) %> jam</strong>
+          </article>
+        </section>
+
+        <section class="panel">
+          <div class="panel-header">
+            <h2>Quick actions</h2>
+          </div>
+          <div class="button-row">
+            <a class="btn btn-primary" href="/computers">Komputer</a>
+            <a class="btn btn-secondary" href="/bookings">Booking Saya</a>
+            <a class="btn btn-secondary" href="/transactions">Riwayat Transaksi</a>
+            <a class="btn btn-secondary" href="/profile">Profil</a>
+          </div>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>

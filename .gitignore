@@ -1,0 +1,37 @@
+# Dependencies and local environment secrets
+node_modules/
+.env
+.env.*
+!.env.example
+.envrc
+secrets/
+
+# Private keys and certificates
+*.pem
+*.key
+*.p12
+*.pfx
+*.jks
+*.keystore
+id_rsa
+id_ed25519
+
+# Local database exports and files
+*.dump
+*.backup
+*.sqlite
+*.sqlite3
+*.db
+*.sql.gz
+
+# Local Docker Compose overrides
+docker-compose.override.yml
+
+# Logs and generated test output
+*.log
+npm-debug.log*
+coverage/
+
+# Operating system files
+.DS_Store
+Thumbs.db

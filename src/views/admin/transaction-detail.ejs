@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Detail Transaksi | NETCAFE</title>
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <body>
+    <div class="app-shell">
+      <%- include('../partials/admin-sidebar', { path: path || '/admin/transactions' }) %>
+      <main class="content-area">
+        <header class="topbar"><div><p class="eyebrow">TRANSAKSI #<%= transaction.id %></p><h1>Detail transaksi</h1></div></header>
+        <section class="panel"><div class="table-wrap"><table><tbody>
+          <tr><th>Pelanggan</th><td><%= transaction.username %> · <%= transaction.email %></td></tr>
+          <tr><th>Booking</th><td><%= transaction.booking_id %></td></tr>
+          <tr><th>Komputer</th><td><%= transaction.computer_code || '-' %> · <%= transaction.computer_name || '-' %></td></tr>
+          <tr><th>Jadwal booking</th><td><%= transaction.start_time ? new Date(transaction.start_time).toLocaleString('id-ID') : '-' %> - <%= transaction.end_time ? new Date(transaction.end_time).toLocaleString('id-ID') : '-' %></td></tr>
+          <tr><th>Tipe</th><td><%= transaction.transaction_type %></td></tr>
+          <tr><th>Status</th><td><%= transaction.status %></td></tr>
+          <tr><th>Jumlah</th><td>Rp <%= Number(transaction.amount || 0).toLocaleString('id-ID') %></td></tr>
+          <tr><th>Dibuat</th><td><%= new Date(transaction.created_at).toLocaleString('id-ID') %></td></tr>
+        </tbody></table></div><div class="button-row">
+          <% if (transaction.status === 'PENDING') { %><form method="post" action="/admin/transactions/<%= transaction.id %>/complete"><button class="btn btn-primary" type="submit">Terima pembayaran</button></form><% } %>
+          <a class="btn btn-secondary" href="/admin/transactions">Kembali ke transaksi</a>
+        </div></section>
+      </main>
+    </div>
+  </body>
+</html>

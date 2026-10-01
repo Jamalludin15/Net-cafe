@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Sesi Penggunaan | NETCAFE</title>
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <body>
+    <div class="app-shell">
+      <%- include('../partials/admin-sidebar', { path: path || '/admin/sessions' }) %>
+      <main class="content-area">
+        <header class="topbar"><div><p class="eyebrow">OPERASIONAL</p><h1>Sesi penggunaan</h1></div></header>
+        <section class="panel">
+          <h2>Mulai sesi dari booking</h2>
+          <% if (bookings.length) { %>
+            <form class="inline-form" method="post" action="/admin/sessions/start">
+              <label for="booking_id">Booking yang sedang berlangsung</label>
+              <select id="booking_id" name="booking_id" required>
+                <option value="">Pilih booking</option>
+                <% bookings.forEach((booking) => { %><option value="<%= booking.id %>">#<%= booking.id %> · <%= booking.customer_name %> · <%= booking.computer_code %> · <%= new Date(booking.start_time).toLocaleTimeString('id-ID', { timeZone: 'Asia/Jakarta' }) %>-<%= new Date(booking.end_time).toLocaleTimeString('id-ID', { timeZone: 'Asia/Jakarta' }) %></option><% }) %>
+              </select>
+              <button class="btn btn-primary" type="submit">Mulai sesi</button>
+            </form>
+          <% } else { %>
+            <p>Belum ada booking terkonfirmasi yang jadwalnya sedang berlangsung. Periksa waktu WIB atau konfirmasi booking di <a href="/admin/bookings">Manajemen booking</a>.</p>
+          <% } %>
+        </section>
+        <section class="panel">
+          <div class="table-wrap"><table>
+            <thead><tr><th>Pelanggan</th><th>Komputer</th><th>Mulai</th><th>Durasi (jam)</th><th>Status</th><th>Aksi</th></tr></thead>
+            <tbody>
+              <% if (!sessions.length) { %>
+                <tr><td colspan="6">Belum ada sesi pengguna.</td></tr>
+              <% } %>
+              <% sessions.forEach((session) => { %>
+                <tr>
+                  <td><%= session.customer_name %></td>
+                  <td><%= session.computer_code %> · <%= session.computer_name %></td>
+                  <td><%= new Date(session.started_at).toLocaleString('id-ID', { timeZone: 'Asia/Jakarta' }) %></td>
+                  <td><%= Number(session.duration_hours || 0).toFixed(2) %></td>
+                  <td><%= session.status %></td>
+                  <td><% if (session.status === 'ACTIVE') { %><form method="post" action="/admin/sessions/<%= session.id %>/end"><button class="btn btn-secondary" type="submit">Akhiri sesi</button></form><% } %></td>
+                </tr>
+              <% }) %>
+            </tbody>
+          </table></div>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>

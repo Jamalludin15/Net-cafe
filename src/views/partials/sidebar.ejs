@@ -1,0 +1,13 @@
+<aside class="sidebar">
+  <div class="brand-block">NETCAFE</div>
+  <nav class="nav-menu" aria-label="Sidebar navigation">
+    <a class="nav-link <%= path === '/dashboard' ? 'active' : '' %>" href="/dashboard">🏠 Dashboard</a>
+    <a class="nav-link <%= path === '/computers' ? 'active' : '' %>" href="/computers">🖥 Komputer</a>
+    <a class="nav-link <%= path === '/bookings' ? 'active' : '' %>" href="/bookings">📅 Booking Saya</a>
+    <a class="nav-link <%= path === '/transactions' ? 'active' : '' %>" href="/transactions">🧾 Riwayat Transaksi</a>
+    <a class="nav-link <%= path === '/profile' ? 'active' : '' %>" href="/profile">👤 Profil</a>
+  </nav>
+  <form method="post" action="/logout" class="logout-form">
+    <button type="submit" class="logout-button">🚪 Logout</button>
+  </form>
+</aside>

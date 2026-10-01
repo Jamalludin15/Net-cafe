@@ -1,0 +1,16 @@
+<aside class="sidebar admin-sidebar">
+  <div class="brand-block">NETCAFE ADMIN</div>
+  <nav class="nav-menu" aria-label="Admin sidebar navigation">
+    <a class="nav-link <%= path === '/admin/dashboard' ? 'active' : '' %>" href="/admin/dashboard">🏠 Dashboard</a>
+    <a class="nav-link <%= path === '/admin/customers' ? 'active' : '' %>" href="/admin/customers">👥 Pelanggan</a>
+    <a class="nav-link <%= path === '/admin/computers' ? 'active' : '' %>" href="/admin/computers">🖥 Komputer</a>
+    <a class="nav-link <%= path === '/admin/bookings' ? 'active' : '' %>" href="/admin/bookings">📅 Booking</a>
+    <a class="nav-link <%= path === '/admin/sessions' ? 'active' : '' %>" href="/admin/sessions">▶ Sesi Penggunaan</a>
+    <a class="nav-link <%= path === '/admin/transactions' ? 'active' : '' %>" href="/admin/transactions">🧾 Transaksi</a>
+    <a class="nav-link <%= path === '/admin/reports' ? 'active' : '' %>" href="/admin/reports">📊 Laporan</a>
+    <a class="nav-link <%= path === '/admin/accounts' ? 'active' : '' %>" href="/admin/accounts">👤 Akun Admin</a>
+  </nav>
+  <form method="post" action="/logout" class="logout-form">
+    <button type="submit" class="logout-button">🚪 Logout</button>
+  </form>
+</aside>

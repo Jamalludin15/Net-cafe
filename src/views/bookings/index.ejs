@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>My bookings | NETCAFE</title>
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <body>
+    <main class="wide-page">
+      <a class="brand" href="/dashboard">NETCAFE</a>
+      <p class="eyebrow">CUSTOMER</p>
+      <h1>My bookings</h1>
+      <nav class="page-nav"><a href="/dashboard">Dashboard</a><a href="/computers">Computers</a></nav>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Computer</th><th>Start</th><th>End</th><th>Status</th><th>Estimated total</th><th></th></tr></thead>
+          <tbody>
+            <% bookings.forEach((booking) => { %>
+              <tr>
+                <td><%= booking.computer_code %> · <%= booking.name %></td>
+                <td><%= new Date(booking.start_time).toLocaleString('id-ID', { timeZone: 'Asia/Jakarta' }) %></td>
+                <td><%= new Date(booking.end_time).toLocaleString('id-ID', { timeZone: 'Asia/Jakarta' }) %></td>
+                <td><%= booking.status %></td>
+                <td><%= Number(booking.total).toLocaleString('id-ID') %></td>
+                <td><a href="/bookings/<%= booking.id %>">Detail</a> <% if (['PENDING', 'CONFIRMED'].includes(booking.status)) { %><form class="inline-form" method="post" action="/bookings/<%= booking.id %>/cancel"><button class="link-button" type="submit">Cancel</button></form><% } %></td>
+              </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+    </main>
+  </body>
+</html>

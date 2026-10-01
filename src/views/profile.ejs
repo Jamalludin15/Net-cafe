@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Profil | NETCAFE</title>
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <body>
+    <div class="app-shell">
+      <%- include('partials/sidebar', { path: path || '/profile' }) %>
+      <main class="content-area">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">PROFIL</p>
+            <h1>Informasi akun</h1>
+          </div>
+          <div class="topbar-actions">
+            <a class="btn btn-secondary" href="/profile/edit">Edit Profil</a>
+          </div>
+        </header>
+        <section class="panel">
+          <table>
+            <tbody>
+              <tr><th>Username</th><td><%= user.username %></td></tr>
+              <tr><th>Email</th><td><%= user.email %></td></tr>
+              <tr><th>Role</th><td><%= user.role %></td></tr>
+              <tr><th>Status</th><td><%= user.is_active ? 'Active' : 'Inactive' %></td></tr>
+              <tr><th>Tanggal registrasi</th><td><%= new Date(user.created_at).toLocaleString('id-ID') %></td></tr>
+            </tbody>
+          </table>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>
